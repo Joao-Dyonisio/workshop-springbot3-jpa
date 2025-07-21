@@ -2,6 +2,7 @@ package com.projetospringudemy.curso.config;
 
 import com.projetospringudemy.curso.entidades.Pedido;
 import com.projetospringudemy.curso.entidades.Usuario;
+import com.projetospringudemy.curso.entidades.enums.PedidoStatus;
 import com.projetospringudemy.curso.repositorios.PedidoRepositorio;
 import com.projetospringudemy.curso.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class TesteConfig implements CommandLineRunner {
         Usuario u1 = new Usuario(null, "Maria", "maria@gmail.com", "657956879", "123");
         Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "98954343", "456");
 
-        Pedido p1 = new Pedido(null, u1, Instant.parse("2019-06-20T19:53:07Z"));
-        Pedido p2 = new Pedido(null, u2, Instant.parse("2019-07-21T03:42:10Z"));
-        Pedido p3 = new Pedido(null, u1, Instant.parse("2019-07-22T15:21:22Z"));
+        Pedido p1 = new Pedido(null, u1, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.PAGO);
+        Pedido p2 = new Pedido(null, u2, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.AGURADANDO_PAGAMENTO);
+        Pedido p3 = new Pedido(null, u1, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.ENTREGUE);
 
         usuarioRepositorio.saveAll(Arrays.asList(u1, u2));
         pedidoRepositorio.saveAll(Arrays.asList(p1,p2,p3));
