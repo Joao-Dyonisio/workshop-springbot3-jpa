@@ -3,9 +3,11 @@ package com.projetospringudemy.curso.entidades;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "tabela_user")
+@Table(name = "tabela_usuarios")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -16,6 +18,9 @@ public class Usuario implements Serializable {
     private String email;
     private String telefone;
     private String senha;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -68,6 +73,10 @@ public class Usuario implements Serializable {
         this.nome = nome;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -92,5 +101,4 @@ public class Usuario implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-
 }

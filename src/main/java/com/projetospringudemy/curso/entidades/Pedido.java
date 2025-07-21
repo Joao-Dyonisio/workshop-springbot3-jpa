@@ -1,0 +1,78 @@
+package com.projetospringudemy.curso.entidades;
+
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
+@Table(name = "tabela_pedido")
+public class Pedido implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date momento;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Usuario cliente;
+
+    public Pedido(){
+    }
+
+    public Pedido(Long id, Usuario cliente, Date momento) {
+        this.id = id;
+        this.cliente = cliente;
+        this.momento = momento;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
+
+    public Date getMomento() {
+        return momento;
+    }
+
+    public void setMomento(Date momento) {
+        this.momento = momento;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pedido other = (Pedido) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+}
