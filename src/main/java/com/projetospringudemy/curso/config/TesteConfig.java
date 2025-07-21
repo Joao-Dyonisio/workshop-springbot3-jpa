@@ -1,12 +1,15 @@
 package com.projetospringudemy.curso.config;
 
+import com.projetospringudemy.curso.entidades.Pedido;
 import com.projetospringudemy.curso.entidades.Usuario;
+import com.projetospringudemy.curso.repositorios.PedidoRepositorio;
 import com.projetospringudemy.curso.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.time.Instant;
 import java.util.Arrays;
 
 @Configuration
@@ -16,12 +19,20 @@ public class TesteConfig implements CommandLineRunner {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    private PedidoRepositorio pedidoRepositorio;
+
     @Override
     public void run(String... args) throws Exception {
 
-        Usuario u1 = new Usuario(null, "123", "123455641", "Maria", "maria@gmail.com");
-        Usuario u2 = new Usuario(null, "456", "123456789", "Alex Green", "alex@gmail.com");
+        Usuario u1 = new Usuario(null, "Maria", "maria@gmail.com", "657956879", "123");
+        Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "98954343", "456");
+
+        Pedido p1 = new Pedido(null, u1, Instant.parse("2019-06-20T19:53:07Z"));
+        Pedido p2 = new Pedido(null, u2, Instant.parse("2019-07-21T03:42:10Z"));
+        Pedido p3 = new Pedido(null, u1, Instant.parse("2019-07-22T15:21:22Z"));
 
         usuarioRepositorio.saveAll(Arrays.asList(u1, u2));
+        pedidoRepositorio.saveAll(Arrays.asList(p1,p2,p3));
     }
 }

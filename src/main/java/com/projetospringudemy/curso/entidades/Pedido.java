@@ -1,8 +1,10 @@
 package com.projetospringudemy.curso.entidades;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -12,7 +14,9 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date momento;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant momento;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -21,7 +25,7 @@ public class Pedido implements Serializable {
     public Pedido(){
     }
 
-    public Pedido(Long id, Usuario cliente, Date momento) {
+    public Pedido(Long id, Usuario cliente, Instant momento) {
         this.id = id;
         this.cliente = cliente;
         this.momento = momento;
@@ -43,11 +47,11 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public Date getMomento() {
+    public Instant getMomento() {
         return momento;
     }
 
-    public void setMomento(Date momento) {
+    public void setMomento(Instant momento) {
         this.momento = momento;
     }
 
