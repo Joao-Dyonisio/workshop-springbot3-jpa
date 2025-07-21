@@ -15,7 +15,6 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant momento;
 
@@ -29,6 +28,7 @@ public class Pedido implements Serializable {
     }
 
     public Pedido(Long id, Usuario cliente, Instant momento, PedidoStatus pedidoStatus) {
+        super();
         this.id = id;
         this.cliente = cliente;
         this.momento = momento;
@@ -64,7 +64,7 @@ public class Pedido implements Serializable {
     }
 
     public void setPedidoStatus(PedidoStatus pedidoStatus) {
-        if(pedidoStatus == null) {
+        if(pedidoStatus != null) {
             this.pedidoStatus = pedidoStatus.getCodigo();
         }
     }
