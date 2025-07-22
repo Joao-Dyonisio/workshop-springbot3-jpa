@@ -1,14 +1,8 @@
 package com.projetospringudemy.curso.config;
 
-import com.projetospringudemy.curso.entidades.Categoria;
-import com.projetospringudemy.curso.entidades.Pedido;
-import com.projetospringudemy.curso.entidades.Produto;
-import com.projetospringudemy.curso.entidades.Usuario;
+import com.projetospringudemy.curso.entidades.*;
 import com.projetospringudemy.curso.entidades.enums.PedidoStatus;
-import com.projetospringudemy.curso.repositorios.CategoriaRepositorio;
-import com.projetospringudemy.curso.repositorios.PedidoRepositorio;
-import com.projetospringudemy.curso.repositorios.ProdutoRepositorio;
-import com.projetospringudemy.curso.repositorios.UsuarioRepositorio;
+import com.projetospringudemy.curso.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TesteConfig implements CommandLineRunner {
 
     @Autowired
     private ProdutoRepositorio produtoRepositorio;
+
+    @Autowired
+    private PedidoItemRepositorio pedidoItemRepositorio;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,5 +64,12 @@ public class TesteConfig implements CommandLineRunner {
 
         usuarioRepositorio.saveAll(Arrays.asList(u1, u2));
         pedidoRepositorio.saveAll(Arrays.asList(pedido1,pedido2,pedido3));
+
+        PedidoItem pedidoItem1 = new PedidoItem(pedido1, p1, 2, p1.getPreco());
+        PedidoItem pedidoItem2 = new PedidoItem(pedido1, p3, 1, p3.getPreco());
+        PedidoItem pedidoItem3 = new PedidoItem(pedido2, p3, 2, p3.getPreco());
+        PedidoItem pedidoItem4 = new PedidoItem(pedido3, p5, 2, p5.getPreco());
+
+        pedidoItemRepositorio.saveAll(Arrays.asList(pedidoItem1,pedidoItem2,pedidoItem3,pedidoItem4));
     }
 }
