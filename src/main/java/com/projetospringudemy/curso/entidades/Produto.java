@@ -1,5 +1,6 @@
 package com.projetospringudemy.curso.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -23,6 +24,9 @@ public class Produto implements Serializable {
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<Categoria> categorias = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.produto")
+    private Set<PedidoItem> itens = new HashSet<>();
 
     public Produto(){
     }
@@ -80,6 +84,14 @@ public class Produto implements Serializable {
         return categorias;
     }
 
+    @JsonIgnore
+    public Set<Pedido> getPedidos() {
+        Set<Pedido> set = new HashSet<>();
+        for (PedidoItem pedidoItem : itens) {
+            set.add(pedidoItem.getPedido());
+        }
+        return set;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
